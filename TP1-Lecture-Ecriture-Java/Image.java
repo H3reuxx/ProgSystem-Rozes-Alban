@@ -1,5 +1,6 @@
 package org.example.progsystem;
 
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -56,13 +57,23 @@ public class Image {
     }
 
     public void save_bin(String filename) throws IOException {
-        FileWriter writer = new FileWriter(filename);
+        FileOutputStream writer = new FileOutputStream(filename);
 
-        writer.write("P6\n");
-        writer.write(width + " " + height +"\n");
-        writer.write("255\n");
+        writer.write(("P6\n" + width + " " + height +"\n255\n").getBytes());
 
-        
+        byte[] tabPixels = new byte[width * height * 3];
+        int index = 0;
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                for (int f = 0; f<3; f++) {
+                    tabPixels[index] = (byte) pixels[i][j][0];
+                    index++;
+                }
+            }
+        }
+
+        writer.write(tabPixels);
 
         writer.close();
     }
