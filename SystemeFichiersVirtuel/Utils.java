@@ -61,7 +61,6 @@ public class Utils {
         return i;
     }
 
-
     public static int writeString(
             byte[] memory,
             int offset,
