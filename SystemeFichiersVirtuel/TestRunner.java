@@ -3,8 +3,7 @@ package org.example.progsystem;
 public class TestRunner {
 
     public static void main(String[] args) {
-        testStep2();
-        testStep3();
+        testStep6();
     }
 
     public static void testStep2() {
@@ -202,5 +201,22 @@ public class TestRunner {
                 "Un bloc hors limites doit être refusé";
 
         System.out.println("[OK] Étape 5 validée !");
+    }
+
+    public static void testStep6() {
+        System.out.println("=== TEST ÉTAPE 6 : Adressage Inode ===");
+
+        MemoryManager mm = new MemoryManager();
+
+        Inode inode = new Inode(mm, 4);
+
+        int expectedOffset =
+                MemoryManager.INODE_TABLE_OFFSET
+                        + (4 * Inode.INODE_SIZE);
+
+        assert inode.getInodeOffset() == expectedOffset :
+                "Offset d'inode incorrect";
+
+        System.out.println("[OK] Étape 6 validée !");
     }
 }
