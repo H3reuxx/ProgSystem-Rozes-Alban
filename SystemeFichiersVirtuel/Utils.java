@@ -1,6 +1,4 @@
-package org.example.progsystem.tp2;
-
-import java.nio.charset.StandardCharsets;
+package org.example.progsystem;
 
 public class Utils {
 
