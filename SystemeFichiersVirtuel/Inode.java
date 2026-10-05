@@ -1,4 +1,4 @@
-package org.example.progsystem;
+package org.example.progsystem.tp2;
 
 public class Inode {
 
@@ -48,9 +48,67 @@ public class Inode {
         // Lire les 10 pointeurs directs.
 
         for (int index = 0; index < 10; index++) {
-            pointers[index] = Utils.readInt(memory, getInodeOffset() + 40 + (4*index));
+            pointers[index] = Utils.readInt(memory, getInodeOffset() + 28 + (4 * index));
         }
 
         return pointers;
     }
+
+    public void writeToMemory(
+            int fileType,
+            int fileSize,
+            long creationTime,
+            long modificationTime,
+            int[] directPointers,
+            int indirectPointer,
+            short permissions,
+            int linkCount) {
+
+        byte[] memory =
+                memoryManager.getFilesystemMemory();
+
+        int offset = getInodeOffset();
+
+        // TODO:
+        // 1. Numéro d'inode
+        // 2. Type
+        // 3. Taille
+        // 4. Création
+        // 5. Modification
+        // 6. 10 pointeurs directs
+        // 7. Pointeur indirect
+        // 8. Permissions
+        // 9. Nombre de liens
+
+        Utils.writeInt(memory, offset, inodeNumber);
+        offset += 4;
+
+        Utils.writeInt(memory, offset, fileType);
+        offset += 4;
+
+        Utils.writeInt(memory, offset, fileSize);
+        offset += 4;
+
+        Utils.writeLong(memory, offset, creationTime);
+        offset += 8;
+
+        Utils.writeLong(memory, offset, modificationTime);
+        offset += 8;
+
+        for (int i = 0; i < 10; i++) {
+            Utils.writeInt(memory, offset, directPointers[i]);
+            offset += 4;
+        }
+
+        Utils.writeInt(memory, offset, indirectPointer);
+        offset += 4;
+
+        Utils.writeShort(memory, offset, permissions);
+        offset += 2;
+
+        Utils.writeInt(memory, offset, linkCount);
+        offset += 4;
+    }
+
+
 }

@@ -1,4 +1,4 @@
-package org.example.progsystem;
+package org.example.progsystem.tp2;
 
 public class Utils {
 

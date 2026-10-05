@@ -1,4 +1,4 @@
-package org.example.progsystem;
+package org.example.progsystem.tp2;
 
 public class MemoryManager {
 
@@ -93,7 +93,7 @@ public class MemoryManager {
         } else {
             // TODO:
             // Positionner le bit à 0.
-            memory[offset] &= (byte) (1 << bitPosition);
+            memory[offset] &= (byte) ~(1 << bitPosition);
         }
 
         return true;
@@ -133,7 +133,7 @@ public class MemoryManager {
         // Retourner le premier bloc libre.
         // Le marquer immédiatement comme utilisé.
 
-        for (int indice = 129; indice < (NUM_BLOCKS-1); indice++) {
+        for (int indice = 129; indice < NUM_BLOCKS; indice++) {
             if (isBlockUsed(indice) == 0) {
                 setBlockUsed(indice, true);
 
